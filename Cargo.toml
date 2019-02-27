@@ -1,0 +1,7 @@
+[package]
+name = "liblife"
+version = "0.1.0"
+authors = ["Luiz de Prá <rawarkanis@gmail.com>"]
+edition = "2018"
+
+[dependencies]
