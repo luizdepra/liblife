@@ -30,6 +30,12 @@ impl SimpleCell {
     }
 }
 
+impl Default for SimpleCell {
+    fn default() -> Self {
+        SimpleCell { state: State::Dead }
+    }
+}
+
 impl Cell for SimpleCell {
     /// Returns if the SimpleCell is alive or not.
     fn is_alive(&self) -> bool {
@@ -47,15 +53,23 @@ impl Cell for SimpleCell {
     }
 }
 
-impl Default for SimpleCell {
-    fn default() -> Self {
-        SimpleCell { state: State::Dead }
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_simplecell_new() {
+        let expected_alive = SimpleCell {
+            state: State::Alive,
+        };
+        let expected_dead = SimpleCell { state: State::Dead };
+
+        let alive = SimpleCell::new(true);
+        let dead = SimpleCell::new(false);
+
+        assert_eq!(alive, expected_alive);
+        assert_eq!(dead, expected_dead);
+    }
 
     #[test]
     fn test_simplecell_default() {
@@ -75,5 +89,23 @@ mod tests {
 
         assert!(alive_cell.is_alive());
         assert!(!dead_cell.is_alive());
+    }
+
+    #[test]
+    fn test_simplecell_spawn() {
+        let mut cell = SimpleCell::new(false);
+
+        assert_eq!(cell.is_alive(), false);
+        cell.spawn();
+        assert_eq!(cell.is_alive(), true);
+    }
+
+    #[test]
+    fn test_simplecell_kill() {
+        let mut cell = SimpleCell::new(true);
+
+        assert_eq!(cell.is_alive(), true);
+        cell.kill();
+        assert_eq!(cell.is_alive(), false);
     }
 }
