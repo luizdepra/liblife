@@ -3,21 +3,24 @@
 /// Trait that should be implemented to represent cells.
 ///
 /// This crate provides SimpleCell as a default implementation.
-pub trait Cell: Default {
+pub trait Cell: Default + Clone {
+    /// Returns if the Cell is alive.
     fn is_alive(&self) -> bool;
+    /// Turns the Cell alive.
     fn spawn(&mut self);
+    /// Kills the Cell.
     fn kill(&mut self);
 }
 
 /// Represents the state of a SimpleCell.
-#[derive(Debug, PartialEq)]
+#[derive(Debug, Clone, PartialEq)]
 enum State {
     Alive,
     Dead,
 }
 
 /// Default representation of a cell.
-#[derive(Debug, PartialEq)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct SimpleCell {
     state: State,
 }
@@ -31,6 +34,7 @@ impl SimpleCell {
 }
 
 impl Default for SimpleCell {
+    /// Returns a dead SimpleCell.
     fn default() -> Self {
         SimpleCell { state: State::Dead }
     }
@@ -42,12 +46,12 @@ impl Cell for SimpleCell {
         self.state == State::Alive
     }
 
-    /// Turn the SimpleCell alive.
+    /// Turns the SimpleCell alive.
     fn spawn(&mut self) {
         self.state = State::Alive;
     }
 
-    /// Turn the SimpleCell dead.
+    /// Kills the SimpleCell.
     fn kill(&mut self) {
         self.state = State::Dead;
     }
