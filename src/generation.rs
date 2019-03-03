@@ -48,7 +48,7 @@ where
     pub fn cell(&self, x: u64, y: u64) -> Option<&T> {
         let position = y * self.width + x;
         if position > self.width * self.height {
-            return None
+            return None;
         }
         Some(&self.cells[position as usize])
     }
@@ -57,7 +57,7 @@ where
     pub fn cell_mut(&mut self, x: u64, y: u64) -> Option<&mut T> {
         let position = y * self.width + x;
         if position > self.width * self.height {
-            return None
+            return None;
         }
         Some(&mut self.cells[position as usize])
     }
