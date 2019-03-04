@@ -1,0 +1,23 @@
+language: rust
+
+matrix:
+  include:
+    - name: stable
+      rust: stable
+    - name: nightly
+      rust: nightly
+    - name: beta
+      rust: beta
+    - name: styling
+      rust: stable
+      install:
+        - rustup component add clippy
+        - rustup component add rustfmt
+      script:
+        - cargo fmt --all -- --check
+        - cargo clippy --all -- -D warnings
+
+script:
+  - cargo build --all --verbose
+  - cargo test --all --verbose
+  - cargo doc --all --verbose
