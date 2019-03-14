@@ -1,7 +1,7 @@
 [package]
 name = "liblife"
 description = "A basic crate to build Conway's Game of Life applications with Rust."
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Luiz de Prá <rawarkanis@gmail.com>"]
 edition = "2018"
 license = "MIT"
@@ -11,3 +11,4 @@ documentation = "https://docs.rs/liblife/"
 
 [dependencies]
 itertools = "0.8.0"
+failure = "0.1.5"

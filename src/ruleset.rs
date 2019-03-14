@@ -1,3 +1,5 @@
+//! Generations calculation ruleset.
+
 use itertools::iproduct;
 
 use crate::cell::Cell;

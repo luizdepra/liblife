@@ -1,6 +1,7 @@
 //! Generation representation.
 
 use crate::cell::{Cell, SimpleCell};
+use crate::result::{Error, Result};
 
 /// Represents a cell's generation. Generation is a 2D grid of Cells.
 #[derive(Debug, PartialEq)]
@@ -13,7 +14,7 @@ where
     cells: Box<[T]>,
 }
 
-// Represents a Generation made of SimpleCells.
+/// Represents a Generation made of SimpleCells.
 pub type SimpleGeneration = Generation<SimpleCell>;
 
 impl<T> Generation<T>
@@ -21,9 +22,9 @@ where
     T: Cell,
 {
     /// Creates a new generation.
-    pub fn new(width: u64, height: u64) -> Result<Self, &'static str> {
+    pub fn new(width: u64, height: u64) -> Result<Self> {
         if width < 3 || height < 3 {
-            return Err("Generation's width and height must be equal or greater than 3.");
+            return Err(Error::InvalidDimensionError);
         }
 
         let size = (width * height) as usize;
@@ -91,8 +92,8 @@ mod tests {
         let width_error = SimpleGeneration::new(2, 3);
         let height_error = SimpleGeneration::new(3, 2);
 
-        assert_eq!(width_error.unwrap_err(), expected);
-        assert_eq!(height_error.unwrap_err(), expected);
+        assert_eq!(format!("{}", width_error.unwrap_err()), expected);
+        assert_eq!(format!("{}", height_error.unwrap_err()), expected);
     }
 
     #[test]
