@@ -6,7 +6,7 @@ use crate::cell::Cell;
 use crate::generation::Generation;
 
 /// Represents the type of functions needed to calculate generations.
-pub type RulesetFn<T> = Fn(u64, u64, &Generation<T>) -> bool;
+pub type RulesetFn<T> = dyn Fn(u64, u64, &Generation<T>) -> bool;
 
 /// RulesetFn that applies the Conway's evolution rules.
 pub fn apply_conway_ruleset<T>(x: u64, y: u64, gen: &Generation<T>) -> bool
